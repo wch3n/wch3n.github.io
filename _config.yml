@@ -1,16 +1,16 @@
 ###########
 # site.title, site.url, site.author.name
 
-title:   'Dr. Wei Chen (#CompPhys)'
+title:   'Wei Chen'
 author:  
   name:  'Wei Chen'
-description:  'computational condensed matter physics'
+description:  'First-principles methods, defect physics, and data-driven materials discovery'
 
 ## note: 
 #  use site.path in your templates to make it work for both protocols e.g. http and https
 #  use site.url only inside the web feed template (e.g. requires full url incl. protocol)
-path: 
-url:  'http://wch3n.github.io/'
+path:
+url:  'https://wch3n.github.io'
 
 
 ########
@@ -34,4 +34,3 @@ exclude:
 
 safe: true
 lsi: false
-
