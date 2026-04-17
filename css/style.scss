@@ -339,6 +339,44 @@ table {
   gap: 0.9rem;
 }
 
+.icon-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.55rem;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(16, 35, 48, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--ink);
+  box-shadow: 0 10px 24px rgba(16, 35, 48, 0.08);
+}
+
+.icon-link:hover,
+.icon-link:focus {
+  color: var(--accent);
+  background: rgba(15, 109, 115, 0.1);
+  border-color: rgba(15, 109, 115, 0.22);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.icon-link svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.icon-links--footer {
+  margin-top: 0;
+}
+
 .eyebrow {
   margin-bottom: 0.85rem;
   color: var(--accent-alt);

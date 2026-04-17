@@ -9,12 +9,12 @@ body_class: home
     <p class="eyebrow">Computational Materials Science</p>
     <h1 class="hero-title">Wei Chen</h1>
     <p class="hero-lead">
-      I develop first-principles electronic-structure methods and high-throughput workflows for materials discovery, connecting accurate theory with practical questions in semiconductors, quantum materials, complex alloys, and sustainable energy systems.
+      Developing first-principles electronic-structure methods and high-throughput workflows for materials discovery, connecting accurate theory with practical questions in semiconductors, quantum materials, complex alloys, and sustainable energy systems.
     </p>
 
     <div class="hero-actions">
-      <a class="button button-primary" href="{{ site.path }}/assets/wei-chen-cv.pdf">Download CV</a>
-      <a class="button button-secondary" href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa">Google Scholar</a>
+      <a class="button button-primary" href="#publications">Selected publications</a>
+      <a class="button button-secondary" href="#research">Research areas</a>
     </div>
 
     <ul class="hero-metrics">
@@ -38,7 +38,7 @@ body_class: home
       <p class="panel-label">Current focus</p>
       <h2>Accurate theory, scalable workflows, real materials questions.</h2>
       <p>
-        My research bridges method development and applied discovery, from dielectric-dependent hybrid functionals and vertex corrections to screening pipelines for photovoltaics, high-entropy alloys, and quantum defects.
+        Bridging method development and applied discovery, from dielectric-dependent hybrid functionals and vertex corrections to screening pipelines for photovoltaics, high-entropy alloys, and quantum defects.
       </p>
 
       <ul class="detail-list">
@@ -47,18 +47,35 @@ body_class: home
           IMCN - MODL Pole, UCLouvain
         </li>
         <li>
-          <strong>Location</strong>
-          Overijse, Belgium
-        </li>
-        <li>
-          <strong>Profiles</strong>
-          <a href="https://orcid.org/0000-0002-7496-0341">ORCID</a>,
-          <a href="https://github.com/wch3n">GitHub</a>,
-          <a href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa">Scholar</a>
-        </li>
-        <li>
-          <strong>Contact</strong>
-          <a href="mailto:wei.chen@uclouvain.be">wei.chen@uclouvain.be</a>
+          <strong>Links</strong>
+          <div class="icon-links" aria-label="External links">
+            <a class="icon-link" href="mailto:wei.chen@uclouvain.be" aria-label="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3.5" y="5.5" width="17" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M5.5 8l6.5 5 6.5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+              </svg>
+            </a>
+            <a class="icon-link" href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa" aria-label="Google Scholar">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 4l8 4.2-8 4.2-8-4.2L12 4z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.7"/>
+                <path d="M8 11.5V15c0 1.8 2 3 4 3s4-1.2 4-3v-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+                <path d="M20 8.2v5.3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7"/>
+              </svg>
+            </a>
+            <a class="icon-link" href="https://orcid.org/0000-0002-7496-0341" aria-label="ORCID">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                <circle cx="9" cy="9" r="1.2" fill="currentColor"/>
+                <path d="M8.8 11.5v4.7M11.5 16.2v-4.7h1.8a2.35 2.35 0 010 4.7h-1.8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+              </svg>
+            </a>
+            <a class="icon-link" href="https://github.com/wch3n" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 18.5v-3.2a2.1 2.1 0 00-.6-1.5c-2 .2-4.1-.9-4.1-4.6 0-1.2.4-2.2 1.1-3-.2-.5-.5-1.7.1-3.4 0 0 1-.3 3.4 1.1a11.5 11.5 0 016.2 0c2.4-1.4 3.4-1.1 3.4-1.1.6 1.7.3 2.9.1 3.4.7.8 1.1 1.8 1.1 3 0 3.7-2.1 4.8-4.2 4.6a2.3 2.3 0 01.7 1.8v3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+                <path d="M9 18.5c-3 .9-3.8-1.4-3.8-1.4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7"/>
+              </svg>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -70,7 +87,6 @@ body_class: home
   <a href="#software">Software</a>
   <a href="#experience">Experience</a>
   <a href="#publications">Publications</a>
-  <a href="#contact">Contact</a>
 </nav>
 
 <section class="section-block" id="research">
@@ -80,7 +96,7 @@ body_class: home
       <h2>From electronic structure to materials discovery</h2>
     </div>
     <p>
-      I work at the intersection of quantum-mechanical accuracy, defect physics, and data-intensive exploration of complex materials spaces.
+      At the intersection of quantum-mechanical accuracy, defect physics, and data-intensive exploration of complex materials spaces.
     </p>
   </div>
 
@@ -142,7 +158,7 @@ body_class: home
       <h2>Code development for scientific research</h2>
     </div>
     <p>
-      I contribute to both large community codes and focused research tools, with emphasis on methods that are robust enough for production-scale studies.
+      Contributions to both large community codes and focused research tools, with emphasis on methods robust enough for production-scale studies.
     </p>
   </div>
 
@@ -204,7 +220,7 @@ body_class: home
       <h2>Academic profile</h2>
     </div>
     <p>
-      My work combines method development, application-driven modeling, and long-term stewardship of scientific codebases across collaborative research environments.
+      Combining method development, application-driven modeling, and long-term stewardship of scientific codebases across collaborative research environments.
     </p>
   </div>
 
@@ -336,36 +352,3 @@ body_class: home
   </div>
 </section>
 {% endif %}
-
-<section class="section-block" id="contact">
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">Contact</p>
-      <h2>Profiles and contact</h2>
-    </div>
-    <p>
-      For collaboration, speaking, or research discussions, the fastest route is email. Additional profiles and publication lists are linked here.
-    </p>
-  </div>
-
-  <div class="profile-grid">
-    <article class="profile-card">
-      <h3>Get in touch</h3>
-      <p>
-        I am interested in collaborations around electronic-structure theory, defect physics, high-throughput screening, and computational materials design.
-      </p>
-      <a class="button button-primary" href="mailto:wei.chen@uclouvain.be">Email Wei Chen</a>
-    </article>
-
-    <article class="profile-card">
-      <h3>Further information</h3>
-      <p>Curriculum vitae, publication record, persistent researcher identifier, and code profile.</p>
-      <div class="link-stack">
-        <a href="{{ site.path }}/assets/wei-chen-cv.pdf">Curriculum vitae</a>
-        <a href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa">Google Scholar</a>
-        <a href="https://orcid.org/0000-0002-7496-0341">ORCID</a>
-        <a href="https://github.com/wch3n">GitHub</a>
-      </div>
-    </article>
-  </div>
-</section>
