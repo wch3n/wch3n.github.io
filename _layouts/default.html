@@ -36,21 +36,11 @@
 
   <footer class="site-footer">
     <div class="container site-footer__inner">
-      <p>Research in computational materials science at UCLouvain.</p>
-      <div class="icon-links icon-links--footer" aria-label="External links">
-        <a class="icon-link" href="mailto:wei.chen@uclouvain.be" aria-label="Email">
-          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-        </a>
-        <a class="icon-link" href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa" aria-label="Google Scholar">
-          <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-        </a>
-        <a class="icon-link" href="https://orcid.org/0000-0002-7496-0341" aria-label="ORCID">
-          <i class="fa-brands fa-orcid" aria-hidden="true"></i>
-        </a>
-        <a class="icon-link" href="https://github.com/wch3n" aria-label="GitHub">
-          <i class="fa-brands fa-github" aria-hidden="true"></i>
-        </a>
-      </div>
+      <p class="site-footer__stamp">
+        <time datetime="{{ site.time | date_to_xmlschema }}">
+          Updated {{ site.time | date: "%B %-d, %Y at %H:%M" }}
+        </time>
+      </p>
     </div>
   </footer>
 </div>

@@ -322,21 +322,23 @@ table {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(16, 35, 48, 0.08);
   color: var(--muted);
+  text-align: center;
 }
 
 .site-footer__inner p {
   margin-bottom: 0;
 }
 
-.site-footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
+.site-footer__stamp {
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .icon-links {
@@ -371,10 +373,6 @@ table {
 .icon-link i {
   font-size: 1.2rem;
   line-height: 1;
-}
-
-.icon-links--footer {
-  margin-top: 0;
 }
 
 .eyebrow {
@@ -437,6 +435,7 @@ table {
 
 .hero-title {
   max-width: 10ch;
+  font-size: clamp(2.7rem, 8vw, 4.8rem);
 }
 
 .hero-lead {
