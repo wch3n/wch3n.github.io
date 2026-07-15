@@ -2,6 +2,7 @@
 layout: default
 title: Wei Chen
 body_class: home
+person_schema: true
 ---
 
 <section class="home-hero" id="top">
@@ -49,16 +50,16 @@ body_class: home
         <li>
           <strong>Links</strong>
           <div class="icon-links" aria-label="External links">
-            <a class="icon-link" href="mailto:wei.chen@uclouvain.be" aria-label="Email">
+            <a class="icon-link" href="mailto:wei.chen@uclouvain.be" rel="me" aria-label="Email">
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa" aria-label="Google Scholar">
+            <a class="icon-link" href="https://scholar.google.com/citations?user=ouy6ESIAAAAJa" rel="me" aria-label="Google Scholar">
               <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" href="https://orcid.org/0000-0002-7496-0341" aria-label="ORCID">
+            <a class="icon-link" href="https://orcid.org/0000-0002-7496-0341" rel="me" aria-label="ORCID">
               <i class="fa-brands fa-orcid" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" href="https://github.com/wch3n" aria-label="GitHub">
+            <a class="icon-link" href="https://github.com/wch3n" rel="me" aria-label="GitHub">
               <i class="fa-brands fa-github" aria-hidden="true"></i>
             </a>
           </div>
