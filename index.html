@@ -92,6 +92,7 @@
     --atom-mg: #d2d9e0;
     --gold: #e3ab3c;
     --gold-edge: #b9841f;
+    --neg: #c2503a;
     --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
@@ -108,6 +109,7 @@
       --atom-mg: #37404a;
       --gold: #f0c04a;
       --gold-edge: #c9962c;
+      --neg: #ef927c;
     }
   }
   :root[data-theme="dark"] {
@@ -123,6 +125,7 @@
     --atom-mg: #37404a;
     --gold: #f0c04a;
     --gold-edge: #c9962c;
+    --neg: #ef927c;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -217,6 +220,131 @@
   .figures dt { font-size: 1.9rem; font-weight: 650; line-height: 1.15; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
   .figures dd { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.875rem; line-height: 1.5; }
 
+  /* How it works: four animated steps */
+  .how-title { margin: clamp(2.4rem, 5vw, 3.2rem) 0 1.3rem; font-size: 1.25rem; letter-spacing: -0.02em; }
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+  .step-art { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); }
+  .step-art svg { display: block; width: 100%; height: auto; }
+  .step-num { margin: 0.9rem 0 0.15rem; color: var(--accent); font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .steps h4 { margin: 0 0 0.35rem; font-size: 1rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.3; }
+  .step-text p:last-child { margin: 0; color: var(--muted); font-size: 0.875rem; line-height: 1.55; }
+  .formula { margin: 1.6rem 0 0; color: var(--muted); font-size: 0.9rem; }
+  .formula i { font-style: italic; }
+  .defs-only { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .mesh-line { fill: none; stroke: var(--muted); stroke-opacity: 0.3; stroke-width: 1; }
+  .stop-pos { stop-color: var(--accent); }
+  .stop-neg { stop-color: var(--neg); }
+  .s-pos { fill: var(--accent); }
+  .s-neg { fill: var(--neg); }
+  .s-atom { fill: var(--ink); opacity: 0.55; }
+  .env { fill: var(--accent); fill-opacity: 0.1; stroke: var(--ink); stroke-opacity: 0.55; stroke-width: 1.2; stroke-dasharray: 2 5; stroke-linecap: round; }
+  .wave { fill: none; stroke: var(--accent); stroke-linecap: round; }
+  .link { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-dasharray: 3 6; stroke-linecap: round; opacity: 0.75; }
+  .link-end { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: 0.75; }
+  .dep circle, .link-end { transform-box: fill-box; transform-origin: center; }
+  @media (prefers-reduced-motion: no-preference) {
+    .env { animation: env-hop 9s ease-in-out infinite; }
+    .dep circle { animation: deposit 6s ease-out infinite; }
+    .dep circle:nth-child(3n+2) { animation-delay: 0.18s; }
+    .dep circle:nth-child(3n) { animation-delay: 0.36s; }
+    .wave-1 { animation: drift-1 10s linear infinite; }
+    .wave-2 { animation: drift-2 7s linear infinite; }
+    .wave-3 { animation: drift-3 5s linear infinite; }
+    .field { animation: breathe 6s ease-in-out infinite; }
+    .link { animation: flow 1.8s linear infinite; }
+    .link-end { animation: ping 3s ease-out infinite; }
+    .steps li .step-art { animation: step-on 12s linear infinite; }
+    .steps li:nth-child(2) .step-art { animation-delay: 3s; }
+    .steps li:nth-child(3) .step-art { animation-delay: 6s; }
+    .steps li:nth-child(4) .step-art { animation-delay: 9s; }
+  }
+  @keyframes env-hop {
+    0%, 22% { transform: translate(-42px, -8px); }
+    33%, 55% { transform: translate(0, 0); }
+    66%, 88% { transform: translate(50px, -6px); }
+    100% { transform: translate(-42px, -8px); }
+  }
+  @keyframes deposit {
+    0% { transform: scale(0.15); opacity: 0; }
+    20%, 86% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+  @keyframes drift-1 { to { transform: translateX(-240px); } }
+  @keyframes drift-2 { to { transform: translateX(-120px); } }
+  @keyframes drift-3 { to { transform: translateX(-60px); } }
+  @keyframes breathe { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+  @keyframes flow { to { stroke-dashoffset: -18; } }
+  @keyframes ping { 0% { transform: scale(0.6); opacity: 0.9; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+  @keyframes step-on { 0%, 25%, 100% { border-color: var(--line); } 4%, 20% { border-color: var(--accent); } }
+
+  /* Result charts */
+  .viz { --s-fno: #2a78d6; --s-les: #eb6834; --s-sog: #1baf7a; }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz { --s-fno: #3987e5; --s-les: #d95926; --s-sog: #199e70; }
+  }
+  :root[data-theme="dark"] .viz { --s-fno: #3987e5; --s-les: #d95926; --s-sog: #199e70; }
+  .charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+  .chart { margin: 0; padding: 1.1rem 1.1rem 0.9rem; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); }
+  .chart h4 { margin: 0 0 0.3rem; font-size: 1rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.3; }
+  .chart figcaption p, .chart-note { margin: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0.8rem 0 0.4rem; padding: 0; list-style: none; font-size: 0.82rem; }
+  .legend li { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .key { flex: none; width: 22px; height: 10px; overflow: visible; }
+  .key .dash-a { stroke-dasharray: 5 3.5; }
+  .plot-wrap { position: relative; }
+  .plot { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+  .plot:focus-visible { outline-offset: 2px; }
+  .plot text { font-size: 12.5px; }
+  .tick { fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .sub { font-size: 0.72em; }
+  .lab, .note { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--soft); stroke-width: 4px; stroke-linejoin: round; }
+  .grid { stroke: var(--line); stroke-width: 1; }
+  .axis { stroke: var(--muted); stroke-opacity: 0.6; stroke-width: 1; }
+  .guide { stroke: var(--muted); stroke-width: 1; }
+  .note-line { stroke: var(--ink); stroke-width: 1; }
+  .line { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .line.s-ref, .hdot.s-ref { stroke: var(--ink); }
+  .line.s-fno { stroke: var(--s-fno); }
+  .line.s-les { stroke: var(--s-les); }
+  .line.s-sog { stroke: var(--s-sog); }
+  .dash-a { stroke-dasharray: 9 9; stroke-linecap: butt; }
+  .dash-b { stroke-dasharray: 9 9; stroke-dashoffset: 9; stroke-linecap: butt; }
+  .dot, .hdot, .sdot { stroke: var(--soft); stroke-width: 2; }
+  .dot.s-fno, .hdot.s-fno, .sdot.s-fno { fill: var(--s-fno); }
+  .dot.s-les, .hdot.s-les, .sdot.s-les { fill: var(--s-les); }
+  .hdot.s-ref { fill: var(--ink); stroke: var(--soft); }
+  .halo { fill: none; stroke: var(--s-les); stroke-width: 1.5; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .cross { stroke: var(--muted); stroke-width: 1; }
+  .hover { display: none; }
+  .chart.is-active .hover { display: inline; }
+  .tip { position: absolute; z-index: 2; min-width: 9.5rem; padding: 0.5rem 0.65rem; border: 1px solid var(--line); border-radius: 6px; background: var(--page); box-shadow: 0 4px 14px rgb(0 0 0 / 0.12); font-size: 0.8rem; line-height: 1.45; pointer-events: none; }
+  .tip[hidden] { display: none; }
+  .tip-head { margin-bottom: 0.25rem; color: var(--muted); }
+  .tip-row { display: flex; align-items: center; gap: 0.45rem; }
+  .tip-row b { min-width: 3.4rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .tip-row span { color: var(--muted); }
+  .chart-note { margin-top: 0.3rem; }
+  .chart-table { margin-top: 0.6rem; font-size: 0.82rem; }
+  .chart-table summary { width: fit-content; color: var(--accent); cursor: pointer; }
+  .chart-table table { width: 100%; margin-top: 0.5rem; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .chart-table th, .chart-table td { padding: 0.25rem 0.5rem 0.25rem 0; border-bottom: 1px solid var(--line); text-align: left; }
+  .chart-table th { color: var(--muted); font-weight: 600; }
+  .draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .sweep { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .chart.is-in .draw { animation: draw 1.1s ease var(--d, 0s) backwards; }
+    .chart.is-in .pop, .chart.is-in .fade, .chart.is-in .lab, .chart.is-in .note, .chart.is-in .note-line { animation: appear 0.5s ease 1.2s backwards; }
+    .chart.is-in .halo { animation: halo 2.6s ease-out 1.8s infinite; }
+    .chart.is-in .sweep { display: inline; animation: appear 0.4s ease 1.8s backwards, sweep-x 7s ease-in-out 2s infinite alternate; }
+    .chart.is-in .sweep-up { animation: sweep-y 7s ease-in-out 2s infinite alternate; }
+    .chart.is-in.is-active .sweep { display: none; }
+  }
+  @keyframes draw { from { stroke-dashoffset: 1; } }
+  @keyframes appear { from { opacity: 0; } }
+  @keyframes halo { 0% { transform: scale(0.6); opacity: 0.9; } 70%, 100% { transform: scale(2); opacity: 0; } }
+  @keyframes sweep-x { to { transform: translateX(339.2px); } }
+  @keyframes sweep-y { to { transform: translateY(-182.3px); } }
+
   /* Row list: publications */
   .rows { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
   .rows li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.1rem 1.5rem; padding-block: 0.95rem; border-bottom: 1px solid var(--line); }
@@ -227,9 +355,6 @@
   .meta { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
   .meta b { color: var(--ink); font-weight: 600; }
   .venue { white-space: nowrap; }
-  .pubs li { grid-template-columns: 6.5rem minmax(0, 1fr) auto; }
-  .cites { padding-top: 0.08rem; color: var(--muted); font-size: 0.85rem; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .cites b { color: var(--ink); font-size: 1rem; font-weight: 600; }
 
   /* Software */
   .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.9rem 2.6rem; }
@@ -256,6 +381,8 @@
     .feature { grid-template-columns: 1fr; }
     .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; padding: 1.5rem 0 0; border-left: 0; border-top: 1px solid var(--line); }
     .figures div + div { padding-top: 0; border-top: 0; }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .charts { grid-template-columns: 1fr; }
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 640px) {
@@ -265,10 +392,12 @@
     .figures { grid-template-columns: 1fr; gap: 1.1rem; }
     .figures div + div { padding-top: 1.1rem; border-top: 1px solid var(--line); }
     .rows li { grid-template-columns: 1fr; }
-    .pubs li { grid-template-columns: minmax(0, 1fr) auto; }
-    .pubs li > div { grid-column: 1 / -1; grid-row: 2; }
-    .pubs .cites { grid-column: 2; grid-row: 1; }
     .grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .steps { grid-template-columns: 1fr; gap: 1.3rem; }
+    .steps li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0 1rem; align-items: start; }
+    .step-num { margin-top: 0; }
+    .plot text { font-size: 16px; }
+    .chart { padding: 0.9rem 0.8rem 0.8rem; }
   }
   @media print {
     .nav, .theme-toggle, .skip-link, .pulse { display: none; }
@@ -414,6 +543,281 @@
           </div>
         </dl>
       </div>
+
+      <h3 class="how-title">How the Fourier neural operator captures long-range physics</h3>
+      <svg class="defs-only" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="blob-pos"><stop class="stop-pos" offset="0" stop-opacity="0.85"/><stop class="stop-pos" offset="1" stop-opacity="0"/></radialGradient>
+          <radialGradient id="blob-neg"><stop class="stop-neg" offset="0" stop-opacity="0.85"/><stop class="stop-neg" offset="1" stop-opacity="0"/></radialGradient>
+          <radialGradient id="field-pos"><stop class="stop-pos" offset="0" stop-opacity="0.6"/><stop class="stop-pos" offset="1" stop-opacity="0"/></radialGradient>
+          <radialGradient id="field-neg"><stop class="stop-neg" offset="0" stop-opacity="0.6"/><stop class="stop-neg" offset="1" stop-opacity="0"/></radialGradient>
+          <pattern id="mesh" width="20" height="20" patternUnits="userSpaceOnUse"><path class="mesh-line" d="M20 0H0V20"/></pattern>
+        </defs>
+      </svg>
+      <ol class="steps">
+        <li>
+          <div class="step-art">
+            <svg viewBox="0 0 240 160" role="img" aria-label="Atoms coloured by the sign of their latent source, with a dashed circle marking one atom's local environment.">
+              <circle class="env" cx="118" cy="84" r="50"/>
+              <g>
+                <circle class="s-pos" cx="30" cy="34" r="4.6"/>
+                <circle class="s-pos" cx="72" cy="28" r="4.6"/>
+                <circle class="s-neg" cx="122" cy="36" r="4.6"/>
+                <circle class="s-neg" cx="164" cy="30" r="4.6"/>
+                <circle class="s-pos" cx="210" cy="34" r="4.6"/>
+                <circle class="s-pos" cx="26" cy="82" r="4.6"/>
+                <circle class="s-neg" cx="76" cy="76" r="4.6"/>
+                <circle class="s-neg" cx="118" cy="84" r="4.6"/>
+                <circle class="s-neg" cx="168" cy="78" r="4.6"/>
+                <circle class="s-pos" cx="214" cy="82" r="4.6"/>
+                <circle class="s-neg" cx="32" cy="126" r="4.6"/>
+                <circle class="s-neg" cx="70" cy="132" r="4.6"/>
+                <circle class="s-neg" cx="124" cy="128" r="4.6"/>
+                <circle class="s-pos" cx="162" cy="124" r="4.6"/>
+                <circle class="s-pos" cx="208" cy="130" r="4.6"/>
+              </g>
+            </svg>
+          </div>
+          <div class="step-text">
+            <p class="step-num">01</p>
+            <h4>Local sources</h4>
+            <p>MACE reads the local environment of each atom, and a small network turns it into latent sources.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-art">
+            <svg viewBox="0 0 240 160" role="img" aria-label="The sources spread as localized blobs on a regular mesh.">
+              <rect width="240" height="160" fill="url(#mesh)"/>
+              <g class="dep">
+                <circle cx="30" cy="34" r="21" fill="url(#blob-pos)"/>
+                <circle cx="72" cy="28" r="21" fill="url(#blob-pos)"/>
+                <circle cx="122" cy="36" r="21" fill="url(#blob-neg)"/>
+                <circle cx="164" cy="30" r="21" fill="url(#blob-neg)"/>
+                <circle cx="210" cy="34" r="21" fill="url(#blob-pos)"/>
+                <circle cx="26" cy="82" r="21" fill="url(#blob-pos)"/>
+                <circle cx="76" cy="76" r="21" fill="url(#blob-neg)"/>
+                <circle cx="118" cy="84" r="21" fill="url(#blob-neg)"/>
+                <circle cx="168" cy="78" r="21" fill="url(#blob-neg)"/>
+                <circle cx="214" cy="82" r="21" fill="url(#blob-pos)"/>
+                <circle cx="32" cy="126" r="21" fill="url(#blob-neg)"/>
+                <circle cx="70" cy="132" r="21" fill="url(#blob-neg)"/>
+                <circle cx="124" cy="128" r="21" fill="url(#blob-neg)"/>
+                <circle cx="162" cy="124" r="21" fill="url(#blob-pos)"/>
+                <circle cx="208" cy="130" r="21" fill="url(#blob-pos)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="step-text">
+            <p class="step-num">02</p>
+            <h4>Mesh</h4>
+            <p>The sources are spread onto a regular mesh, as in particle-mesh methods.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-art">
+            <svg viewBox="0 0 240 160" role="img" aria-label="Three waves of different wavelength, each spanning the whole cell.">
+              <path class="wave wave-1" stroke-width="2.4" d="M-240 42q60 -30 120 0t120 0t120 0t120 0t120 0t120 0"/>
+              <path class="wave wave-2" stroke-width="1.7" opacity="0.7" d="M-240 84q30 -24 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0"/>
+              <path class="wave wave-3" stroke-width="1.2" opacity="0.45" d="M-240 124q15 -18 30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0"/>
+            </svg>
+          </div>
+          <div class="step-text">
+            <p class="step-num">03</p>
+            <h4>Fourier layers</h4>
+            <p>In Fourier space, every wave spans the whole cell. A learned kernel weights and mixes them, and stacked nonlinear layers let it adapt to the configuration.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-art">
+            <svg viewBox="0 0 240 160" role="img" aria-label="A smooth response field extending across the cell, with two distant atoms linked by a dashed line.">
+              <rect width="240" height="160" fill="url(#mesh)"/>
+              <g class="field">
+                <circle cx="36" cy="40" r="78" fill="url(#field-pos)"/>
+                <circle cx="104" cy="108" r="88" fill="url(#field-neg)"/>
+                <circle cx="150" cy="44" r="58" fill="url(#field-neg)"/>
+                <circle cx="216" cy="96" r="80" fill="url(#field-pos)"/>
+              </g>
+              <g>
+                <circle class="s-atom" cx="30" cy="34" r="2.6"/>
+                <circle class="s-atom" cx="72" cy="28" r="2.6"/>
+                <circle class="s-atom" cx="122" cy="36" r="2.6"/>
+                <circle class="s-atom" cx="164" cy="30" r="2.6"/>
+                <circle class="s-atom" cx="210" cy="34" r="2.6"/>
+                <circle class="s-atom" cx="26" cy="82" r="2.6"/>
+                <circle class="s-atom" cx="76" cy="76" r="2.6"/>
+                <circle class="s-atom" cx="118" cy="84" r="2.6"/>
+                <circle class="s-atom" cx="168" cy="78" r="2.6"/>
+                <circle class="s-atom" cx="214" cy="82" r="2.6"/>
+                <circle class="s-atom" cx="32" cy="126" r="2.6"/>
+                <circle class="s-atom" cx="70" cy="132" r="2.6"/>
+                <circle class="s-atom" cx="124" cy="128" r="2.6"/>
+                <circle class="s-atom" cx="162" cy="124" r="2.6"/>
+                <circle class="s-atom" cx="208" cy="130" r="2.6"/>
+              </g>
+              <path class="link" d="M26 82C80 42 160 42 214 82"/>
+              <circle class="link-end" cx="26" cy="82" r="7"/>
+              <circle class="link-end" cx="214" cy="82" r="7"/>
+            </svg>
+          </div>
+          <div class="step-text">
+            <p class="step-num">04</p>
+            <h4>Long-range response</h4>
+            <p>Back in real space, the response at one atom reflects sources far beyond its cutoff. Its overlap with the sources gives the energy correction.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="formula"><i>E</i> = <i>E</i><sub>MACE</sub> + Δ<i>E</i><sub>FNO</sub>, with Δ<i>E</i><sub>FNO</sub> = ½ ∫ <i>ρ</i> · <i>φ</i> d<b>r</b> over the mesh, where <i>ρ</i> are the source fields and <i>φ</i> the response fields.</p>
+
+      <h3 class="how-title">Where a fixed kernel falls short</h3>
+      <div class="charts viz">
+        <figure class="chart" data-chart='{"x": [173.3, 226.1, 266.5, 300.6, 330.7, 357.9, 406.1, 427.9], "head": ["k = 0.196 Å⁻¹", "k = 0.278 Å⁻¹", "k = 0.340 Å⁻¹", "k = 0.393 Å⁻¹", "k = 0.439 Å⁻¹", "k = 0.481 Å⁻¹", "k = 0.555 Å⁻¹", "k = 0.589 Å⁻¹"], "series": [{"name": "Exact reference", "cls": "s-ref", "y": [178.2, 168.3, 155.0, 140.1, 126.7, 112.1, 79.5, 55.6], "v": ["0.0283", "0.0324", "0.0379", "0.0441", "0.0497", "0.0558", "0.0694", "0.0793"]}, {"name": "MACE-LES", "cls": "s-les", "y": [207.2, 180.2, 160.7, 139.7, 122.4, 104.3, 65.5, 46.9], "v": ["0.0162", "0.0274", "0.0355", "0.0443", "0.0515", "0.0590", "0.0752", "0.0830"]}, {"name": "MACE-FNO", "cls": "s-fno", "y": [178.1, 167.5, 154.2, 141.4, 128.2, 112.1, 77.2, 57.6], "v": ["0.0283", "0.0327", "0.0382", "0.0436", "0.0491", "0.0558", "0.0703", "0.0785"]}]}'>
+          <figcaption>
+            <h4>Charge fluctuations at long wavelength</h4>
+            <p>S<sub>ZZ</sub>(k) of a synthetic ionic fluid under strong screening (κ = 0.5 Å⁻¹), from molecular dynamics.</p>
+          </figcaption>
+          <ul class="legend">
+            <li><svg class="key" viewBox="0 0 22 10" aria-hidden="true"><line class="line s-ref" x1="1" x2="21" y1="5" y2="5"/></svg>Exact reference</li>
+            <li><svg class="key" viewBox="0 0 22 10" aria-hidden="true"><line class="line s-les" x1="1" x2="21" y1="5" y2="5"/><circle class="dot s-les" cx="11" cy="5" r="3.6"/></svg>MACE-LES, prescribed Coulomb kernel</li>
+            <li><svg class="key" viewBox="0 0 22 10" aria-hidden="true"><circle class="dot s-fno" cx="11" cy="5" r="3.6"/></svg>MACE-FNO, learned kernel</li>
+          </ul>
+          <div class="plot-wrap">
+            <svg class="plot" viewBox="0 0 460 290" role="img" tabindex="0" aria-label="Line chart of the charge structure factor against wavevector for the exact reference, MACE-LES and MACE-FNO. At the longest wavelength LES is 43% below the reference, and FNO lies on it.">
+              <line class="grid" x1="46" x2="448" y1="246.0" y2="246.0"/>
+              <text class="tick" x="38" y="250.0" text-anchor="end">0</text>
+              <line class="grid" x1="46" x2="448" y1="174.0" y2="174.0"/>
+              <text class="tick" x="38" y="178.0" text-anchor="end">0.03</text>
+              <line class="grid" x1="46" x2="448" y1="102.0" y2="102.0"/>
+              <text class="tick" x="38" y="106.0" text-anchor="end">0.06</text>
+              <line class="grid" x1="46" x2="448" y1="30.0" y2="30.0"/>
+              <text class="tick" x="38" y="34.0" text-anchor="end">0.09</text>
+              <line class="axis" x1="46" x2="448" y1="246" y2="246"/>
+              <text class="tick" x="46.0" y="264" text-anchor="middle">0</text>
+              <text class="tick" x="175.7" y="264" text-anchor="middle">0.2</text>
+              <text class="tick" x="305.4" y="264" text-anchor="middle">0.4</text>
+              <text class="tick" x="435.0" y="264" text-anchor="middle">0.6</text>
+              <text class="tick" x="46" y="16">S<tspan class="sub" dy="3">ZZ</tspan><tspan dy="-3">(k)</tspan></text>
+              <text class="tick" x="448" y="282" text-anchor="end">k (Å⁻¹)</text>
+              <path class="line s-ref draw" pathLength="1" d="M173.3 178.2L226.1 168.3L266.5 155.0L300.6 140.1L330.7 126.7L357.9 112.1L406.1 79.5L427.9 55.6"/>
+              <path class="line s-les draw" pathLength="1" style="--d:0.5s" d="M173.3 207.2L226.1 180.2L266.5 160.7L300.6 139.7L330.7 122.4L357.9 104.3L406.1 65.5L427.9 46.9"/>
+              <circle class="dot s-les pop" cx="173.3" cy="207.2" r="4.5"/>
+              <circle class="dot s-les pop" cx="226.1" cy="180.2" r="4.5"/>
+              <circle class="dot s-les pop" cx="266.5" cy="160.7" r="4.5"/>
+              <circle class="dot s-les pop" cx="300.6" cy="139.7" r="4.5"/>
+              <circle class="dot s-les pop" cx="330.7" cy="122.4" r="4.5"/>
+              <circle class="dot s-les pop" cx="357.9" cy="104.3" r="4.5"/>
+              <circle class="dot s-les pop" cx="406.1" cy="65.5" r="4.5"/>
+              <circle class="dot s-les pop" cx="427.9" cy="46.9" r="4.5"/>
+              <circle class="dot s-fno pop" cx="173.3" cy="178.1" r="4.5"/>
+              <circle class="dot s-fno pop" cx="226.1" cy="167.5" r="4.5"/>
+              <circle class="dot s-fno pop" cx="266.5" cy="154.2" r="4.5"/>
+              <circle class="dot s-fno pop" cx="300.6" cy="141.4" r="4.5"/>
+              <circle class="dot s-fno pop" cx="330.7" cy="128.2" r="4.5"/>
+              <circle class="dot s-fno pop" cx="357.9" cy="112.1" r="4.5"/>
+              <circle class="dot s-fno pop" cx="406.1" cy="77.2" r="4.5"/>
+              <circle class="dot s-fno pop" cx="427.9" cy="57.6" r="4.5"/>
+              <line class="note-line" x1="158.3" x2="158.3" y1="178.2" y2="207.2"/>
+              <text class="note" x="152.3" y="196.7" text-anchor="end">−43%</text>
+              <text class="lab" x="173.3" y="166.2" text-anchor="middle">FNO</text>
+              <text class="lab" x="173.3" y="228.2" text-anchor="middle">LES</text>
+              <circle class="halo s-les" cx="173.3" cy="207.2" r="9"/>
+              <g class="hover" aria-hidden="true"><line class="cross" y1="30" y2="246"/><circle class="hdot s-ref" r="4"/><circle class="hdot s-les" r="5"/><circle class="hdot s-fno" r="5"/></g>
+            </svg>
+            <div class="tip" role="status" hidden></div>
+          </div>
+          <p class="chart-note">The eight longest-wavelength shells of a 32 Å cell. Sampling errors are smaller than the symbols.</p>
+          <details class="chart-table">
+              <summary>Data table</summary>
+              <table>
+                <thead><tr><th scope="col">k (Å⁻¹)</th><th scope="col">Exact reference</th><th scope="col">MACE-LES</th><th scope="col">MACE-FNO</th></tr></thead>
+                <tbody>
+                  <tr><td>0.196</td><td>0.0283</td><td>0.0162</td><td>0.0283</td></tr>
+                  <tr><td>0.278</td><td>0.0324</td><td>0.0274</td><td>0.0327</td></tr>
+                  <tr><td>0.340</td><td>0.0379</td><td>0.0355</td><td>0.0382</td></tr>
+                  <tr><td>0.393</td><td>0.0441</td><td>0.0443</td><td>0.0436</td></tr>
+                  <tr><td>0.439</td><td>0.0497</td><td>0.0515</td><td>0.0491</td></tr>
+                  <tr><td>0.481</td><td>0.0558</td><td>0.0590</td><td>0.0558</td></tr>
+                  <tr><td>0.555</td><td>0.0694</td><td>0.0752</td><td>0.0703</td></tr>
+                  <tr><td>0.589</td><td>0.0793</td><td>0.0830</td><td>0.0785</td></tr>
+                </tbody>
+              </table>
+            </details>
+        </figure>
+        <figure class="chart" data-chart='{"x": [76.7, 107.1, 137.8, 170.2, 203.1, 234.3, 260.3, 291.8, 324.2, 356.5, 390.0, 418.4], "head": ["reference change −0.271 meV/Å²", "reference change −0.223 meV/Å²", "reference change −0.174 meV/Å²", "reference change −0.122 meV/Å²", "reference change −0.070 meV/Å²", "reference change −0.020 meV/Å²", "reference change 0.021 meV/Å²", "reference change 0.071 meV/Å²", "reference change 0.123 meV/Å²", "reference change 0.174 meV/Å²", "reference change 0.228 meV/Å²", "reference change 0.273 meV/Å²"], "series": [{"name": "MACE-FNO", "cls": "s-fno", "y": [230.4, 210.5, 199.9, 185.8, 167.9, 146.3, 129.0, 109.9, 88.7, 78.4, 56.2, 47.7], "v": ["−0.308", "−0.242", "−0.206", "−0.159", "−0.100", "−0.028", "0.030", "0.094", "0.164", "0.199", "0.273", "0.301"]}, {"name": "MACE-LES", "cls": "s-les", "y": [138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0], "v": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]}, {"name": "CACE-SOG", "cls": "s-sog", "y": [138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0, 138.0], "v": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]}]}'>
+          <figcaption>
+            <h4>Response to a rearranged remote medium</h4>
+            <p>Change in the coupling between two ions 10 to 12 Å apart when only the screening medium far from both is rearranged.</p>
+          </figcaption>
+          <ul class="legend">
+            <li><svg class="key" viewBox="0 0 22 10" aria-hidden="true"><line class="line s-fno" x1="1" x2="21" y1="5" y2="5"/><circle class="dot s-fno" cx="11" cy="5" r="3.6"/></svg>MACE-FNO, nonlinear</li>
+            <li><svg class="key" viewBox="0 0 22 10" aria-hidden="true"><line class="line s-les dash-a" x1="1" x2="21" y1="5" y2="5"/></svg>MACE-LES</li>
+            <li><svg class="key" viewBox="0 0 22 10" aria-hidden="true"><line class="line s-sog dash-a" x1="1" x2="21" y1="5" y2="5"/></svg>CACE-SOG</li>
+          </ul>
+          <div class="plot-wrap">
+            <svg class="plot" viewBox="0 0 460 290" role="img" tabindex="0" aria-label="Chart of the change in interionic coupling predicted by each model against the change in the exact reference. MACE-FNO follows the reference with a slope of 1.13. MACE-LES and CACE-SOG stay at zero.">
+              <line class="grid" x1="46" x2="448" y1="228.0" y2="228.0"/>
+              <text class="tick" x="38" y="232.0" text-anchor="end">−0.3</text>
+              <line class="grid" x1="46" x2="448" y1="138.0" y2="138.0"/>
+              <text class="tick" x="38" y="142.0" text-anchor="end">0</text>
+              <line class="grid" x1="46" x2="448" y1="48.0" y2="48.0"/>
+              <text class="tick" x="38" y="52.0" text-anchor="end">0.3</text>
+              <text class="tick" x="58.6" y="264" text-anchor="middle">−0.3</text>
+              <text class="tick" x="152.8" y="264" text-anchor="middle">−0.15</text>
+              <text class="tick" x="247.0" y="264" text-anchor="middle">0</text>
+              <text class="tick" x="341.2" y="264" text-anchor="middle">0.15</text>
+              <text class="tick" x="435.4" y="264" text-anchor="middle">0.3</text>
+              <text class="tick" x="46" y="16">model change (meV/Å²)</text>
+              <text class="tick" x="448" y="282" text-anchor="end">reference change (meV/Å²)</text>
+              <line class="guide draw" pathLength="1" x1="46.0" y1="234.0" x2="448.0" y2="42.0"/>
+              <line class="line s-les dash-a fade" x1="46.0" x2="448.0" y1="138.0" y2="138.0"/>
+              <line class="line s-sog dash-b fade" x1="46.0" x2="448.0" y1="138.0" y2="138.0"/>
+              <line class="line s-fno draw" pathLength="1" style="--d:0.5s" x1="58.6" y1="239.3" x2="435.4" y2="36.7"/>
+              <circle class="dot s-fno pop" cx="76.7" cy="230.4" r="4.5"/>
+              <circle class="dot s-fno pop" cx="107.1" cy="210.5" r="4.5"/>
+              <circle class="dot s-fno pop" cx="137.8" cy="199.9" r="4.5"/>
+              <circle class="dot s-fno pop" cx="170.2" cy="185.8" r="4.5"/>
+              <circle class="dot s-fno pop" cx="203.1" cy="167.9" r="4.5"/>
+              <circle class="dot s-fno pop" cx="234.3" cy="146.3" r="4.5"/>
+              <circle class="dot s-fno pop" cx="260.3" cy="129.0" r="4.5"/>
+              <circle class="dot s-fno pop" cx="291.8" cy="109.9" r="4.5"/>
+              <circle class="dot s-fno pop" cx="324.2" cy="88.7" r="4.5"/>
+              <circle class="dot s-fno pop" cx="356.5" cy="78.4" r="4.5"/>
+              <circle class="dot s-fno pop" cx="390.0" cy="56.2" r="4.5"/>
+              <circle class="dot s-fno pop" cx="418.4" cy="47.7" r="4.5"/>
+              <text class="lab" x="382.0" y="43.0" text-anchor="end">FNO, slope 1.13</text>
+              <text class="lab" x="448.0" y="158.0" text-anchor="end">LES and CACE-SOG, slope 0</text>
+              <text class="tick" x="96.3" y="242.5">ideal</text>
+              <g class="sweep" aria-hidden="true">
+                <line class="cross" x1="77.4" x2="77.4" y1="30" y2="246"/>
+                <circle class="sdot s-les" cx="77.4" cy="138.0" r="5.5"/>
+                <circle class="sdot s-fno sweep-up" cx="77.4" cy="229.1" r="5.5"/>
+              </g>
+              <g class="hover" aria-hidden="true"><line class="cross" y1="30" y2="246"/><circle class="hdot s-les" r="5"/><circle class="hdot s-fno" r="5"/></g>
+            </svg>
+            <div class="tip" role="status" hidden></div>
+          </div>
+          <p class="chart-note">Dots are averages over bins of the reference change, with 40 probe sets and five training seeds pooled. LES and CACE-SOG do not respond at all.</p>
+          <details class="chart-table">
+              <summary>Data table</summary>
+              <table>
+                <thead><tr><th scope="col">Reference change</th><th scope="col">MACE-FNO</th><th scope="col">MACE-LES</th><th scope="col">CACE-SOG</th></tr></thead>
+                <tbody>
+                  <tr><td>−0.271</td><td>−0.308</td><td>0</td><td>0</td></tr>
+                  <tr><td>−0.223</td><td>−0.242</td><td>0</td><td>0</td></tr>
+                  <tr><td>−0.174</td><td>−0.206</td><td>0</td><td>0</td></tr>
+                  <tr><td>−0.122</td><td>−0.159</td><td>0</td><td>0</td></tr>
+                  <tr><td>−0.070</td><td>−0.100</td><td>0</td><td>0</td></tr>
+                  <tr><td>−0.020</td><td>−0.028</td><td>0</td><td>0</td></tr>
+                  <tr><td>0.021</td><td>0.030</td><td>0</td><td>0</td></tr>
+                  <tr><td>0.071</td><td>0.094</td><td>0</td><td>0</td></tr>
+                  <tr><td>0.123</td><td>0.164</td><td>0</td><td>0</td></tr>
+                  <tr><td>0.174</td><td>0.199</td><td>0</td><td>0</td></tr>
+                  <tr><td>0.228</td><td>0.273</td><td>0</td><td>0</td></tr>
+                  <tr><td>0.273</td><td>0.301</td><td>0</td><td>0</td></tr>
+                </tbody>
+              </table>
+            </details>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -422,9 +826,8 @@
       <div class="section-head">
         <h2>Selected publications</h2>
         <p>
-          Six highly cited papers of the last ten years, out of more than 60 publications with over
-          3,800 citations and an h-index of 31
-          (<a href="https://scholar.google.com/citations?user=ouy6ESIAAAAJ">Google Scholar</a>, November 2026).
+          Six highly cited papers of the last ten years. The full list of more than 60 publications is on
+          <a href="https://scholar.google.com/citations?user=ouy6ESIAAAAJ">Google Scholar</a>.
         </p>
       </div>
       <ol class="rows pubs">
@@ -434,7 +837,6 @@
             <a class="title" href="https://doi.org/10.1038/s41467-023-38423-7">A map of single-phase high-entropy alloys</a>
             <p class="meta"><b>W. Chen</b>, A. Hilhorst, G. Bokas, S. Gorsse, P. J. Jacques, G. Hautier <span class="sep">·</span> <span class="venue">Nat. Commun. 14, 2856</span></p>
           </div>
-          <span class="cites"><b>228</b> citations</span>
         </li>
         <li>
           <span class="when">2021</span>
@@ -442,7 +844,6 @@
             <a class="title" href="https://doi.org/10.1039/D1EE00260K">Origin of the low conversion efficiency in Cu<sub>2</sub>ZnSnS<sub>4</sub> kesterite solar cells: the actual role of cation disorder</a>
             <p class="meta"><b>W. Chen</b>, D. Dahliah, G.-M. Rignanese, G. Hautier <span class="sep">·</span> <span class="venue">Energy Environ. Sci. 14, 3567</span></p>
           </div>
-          <span class="cites"><b>128</b> citations</span>
         </li>
         <li>
           <span class="when">2018</span>
@@ -450,7 +851,6 @@
             <a class="title" href="https://doi.org/10.1103/PhysRevMaterials.2.073803">Nonempirical dielectric-dependent hybrid functional with range separation for semiconductors and insulators</a>
             <p class="meta"><b>W. Chen</b>, G. Miceli, G.-M. Rignanese, A. Pasquarello <span class="sep">·</span> <span class="venue">Phys. Rev. Mater. 2, 073803</span></p>
           </div>
-          <span class="cites"><b>170</b> citations</span>
         </li>
         <li>
           <span class="when">2018</span>
@@ -458,7 +858,6 @@
             <a class="title" href="https://doi.org/10.1103/PhysRevB.97.121112">Nonempirical hybrid functionals for band gaps and polaronic distortions in solids</a>
             <p class="meta">G. Miceli, <b>W. Chen</b>, I. Reshetnyak, A. Pasquarello <span class="sep">·</span> <span class="venue">Phys. Rev. B 97, 121112(R)</span></p>
           </div>
-          <span class="cites"><b>139</b> citations</span>
         </li>
         <li>
           <span class="when">2018</span>
@@ -466,7 +865,6 @@
             <a class="title" href="https://doi.org/10.1021/acs.chemmater.7b02619">Alignment of redox levels at semiconductor–water interfaces</a>
             <p class="meta">Z. Guo, F. Ambrosio, <b>W. Chen</b>, P. Gono, A. Pasquarello <span class="sep">·</span> <span class="venue">Chem. Mater. 30, 94</span></p>
           </div>
-          <span class="cites"><b>118</b> citations</span>
         </li>
         <li>
           <span class="when">2016</span>
@@ -474,7 +872,6 @@
             <a class="title" href="https://doi.org/10.1103/PhysRevLett.117.186401"><i>Ab initio</i> electronic structure of liquid water</a>
             <p class="meta"><b>W. Chen</b>, F. Ambrosio, G. Miceli, A. Pasquarello <span class="sep">·</span> <span class="venue">Phys. Rev. Lett. 117, 186401</span></p>
           </div>
-          <span class="cites"><b>111</b> citations</span>
         </li>
       </ol>
     </div>
@@ -542,6 +939,82 @@
       var next = current === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+<script>
+  // Result charts: draw in when scrolled into view, and a crosshair readout on hover, touch or arrow keys.
+  (function () {
+    var charts = document.querySelectorAll('.chart[data-chart]');
+    if (!charts.length) return;
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var watch = null;
+    if (!calm && 'IntersectionObserver' in window) {
+      watch = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); watch.unobserve(e.target); }
+        });
+      }, { threshold: 0.2 });
+    }
+    charts.forEach(function (fig) {
+      var data = JSON.parse(fig.getAttribute('data-chart'));
+      var svg = fig.querySelector('.plot');
+      var tip = fig.querySelector('.tip');
+      var cross = fig.querySelector('.hover .cross');
+      var index = -1;
+      if (watch) watch.observe(fig); else if (!calm) fig.classList.add('is-in');
+
+      function show(i) {
+        index = i;
+        var x = data.x[i];
+        cross.setAttribute('x1', x); cross.setAttribute('x2', x);
+        tip.textContent = '';
+        var head = document.createElement('div');
+        head.className = 'tip-head';
+        head.textContent = data.head[i];
+        tip.appendChild(head);
+        data.series.forEach(function (s) {
+          var dot = fig.querySelector('.hover .hdot.' + s.cls);
+          if (dot) { dot.setAttribute('cx', x); dot.setAttribute('cy', s.y[i]); }
+          var row = document.createElement('div');
+          row.className = 'tip-row';
+          var key = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          key.setAttribute('class', 'key'); key.setAttribute('viewBox', '0 0 22 10');
+          var stroke = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          stroke.setAttribute('class', 'line ' + s.cls);
+          stroke.setAttribute('x1', 1); stroke.setAttribute('x2', 21); stroke.setAttribute('y1', 5); stroke.setAttribute('y2', 5);
+          key.appendChild(stroke);
+          var value = document.createElement('b'); value.textContent = s.v[i];
+          var name = document.createElement('span'); name.textContent = s.name;
+          row.appendChild(key); row.appendChild(value); row.appendChild(name);
+          tip.appendChild(row);
+        });
+        tip.hidden = false;
+        fig.classList.add('is-active');
+        var box = svg.getBoundingClientRect();
+        var px = x / 460 * box.width;
+        var left = px + 14;
+        if (left + tip.offsetWidth > box.width) left = px - 14 - tip.offsetWidth;
+        tip.style.left = Math.max(0, left) + 'px';
+        tip.style.top = (30 / 290 * box.height) + 'px';
+      }
+      function hide() { index = -1; tip.hidden = true; fig.classList.remove('is-active'); }
+      function nearest(clientX) {
+        var box = svg.getBoundingClientRect();
+        var x = (clientX - box.left) / box.width * 460, best = 0;
+        data.x.forEach(function (v, i) { if (Math.abs(v - x) < Math.abs(data.x[best] - x)) best = i; });
+        return best;
+      }
+      svg.addEventListener('pointermove', function (e) { show(nearest(e.clientX)); });
+      svg.addEventListener('pointerdown', function (e) { show(nearest(e.clientX)); });
+      svg.addEventListener('pointerleave', hide);
+      svg.addEventListener('focus', function () { if (index < 0) show(0); });
+      svg.addEventListener('blur', hide);
+      svg.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { show(Math.min(data.x.length - 1, index + 1)); e.preventDefault(); }
+        else if (e.key === 'ArrowLeft') { show(Math.max(0, index - 1)); e.preventDefault(); }
+        else if (e.key === 'Escape') { hide(); }
+      });
     });
   })();
 </script>
